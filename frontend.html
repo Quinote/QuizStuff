@@ -25,7 +25,8 @@
 	    	height: 60px;
 	    	width:100%; 
 	    	border-bottom: 1px solid #d5d5d5; 
-	    	font-size:14px; 
+	    	font-size:14px;
+	    	box-shadow: 10px 10px 5px #BABABA; 
 	    }
 	    #topNav{
 	    	padding-left: 45px;
@@ -362,29 +363,6 @@
 							<div id="quizframe">
 								<div id="question">
 								</div>
-								<div id="answer_choice">
-									<form id="form1" action="">
-									<input type="radio" id="a1" name="rd" value="" /><label id="rad1"></label><br/>
-									<input type="radio" id="a2" name="rd" value="" /><label id="rad2"></label><br/>
-									<input type="radio" id="a3" name="rd" value="" /><label id="rad3"></label><br/>
-									<input type="radio" id="a4" name="rd" value="" /><label id="rad4"></label><br/>
-									</form>
-								</div>
-								<div id="answer_text">
-									<form id="form2" action="">
-									fill in the blank: <input type="text" id="ansText" size="20" />
-									</form>
-								</div>
-								<div id="answer_check">
-									<form id="form3" action="">
-									<input type="radio" id="true" name="ch" value="" /><label id="che1">True</label><br/>
-									<input type="radio" id="false" name="ch" value="" /><label id="che1">False</label>
-									</form>
-								</div>
-								<ul>
-								<input type="button" id="b2" value="Next Question" onclick="randomizeQuiz();" />
-								<input type="button" id="checker" value="Check Answer" onclick="checkAnswer();" />
-								</ul>
 								<div id="checkCon">
 									<div id="check">
 										<div id="one"> 
@@ -395,6 +373,31 @@
 										</div>
 									</div>
 								</div>
+								<div id="meow">
+									<div id="answer_choice">
+										<form id="form1" action="">
+										<input type="radio" id="a1" name="rd" value="" /><label id="rad1"></label><br/>
+										<input type="radio" id="a2" name="rd" value="" /><label id="rad2"></label><br/>
+										<input type="radio" id="a3" name="rd" value="" /><label id="rad3"></label><br/>
+										<input type="radio" id="a4" name="rd" value="" /><label id="rad4"></label><br/>
+										</form>
+									</div>
+									<div id="answer_text">
+										<form id="form2" action="">
+										fill in the blank: <input type="text" id="ansText" size="20" />
+										</form>
+									</div>
+									<div id="answer_check">
+										<form id="form3" action="">
+										<input type="radio" id="true" name="ch" value="" /><label id="che1">True</label><br/>
+										<input type="radio" id="false" name="ch" value="" /><label id="che1">False</label>
+										</form>
+									</div>
+								</div>
+								<ul>
+								<input type="button" id="b2" value="Next Question" onclick="randomizeQuiz();" />
+								<input type="button" id="checker" value="Check Answer" onclick="checkAnswer();" />
+								</ul>
 							</div>
 							<div id="scorepage">
 								<div id="scoreResult">
@@ -449,6 +452,7 @@
 					
 			function checkAnswer() {
 				document.getElementById("checkCon").style.visibility="visable";
+				document.getElementById("meow").style.visibility="hidden";
 				var inputs = document.getElementsByName("rd");
 				var chat = document.getElementsByName("ch");
 				var x=0;
@@ -469,7 +473,7 @@
 						}
 					}
 					if(!y){
-						alert("please select a choice");
+						alert("Please select an answer");
 					}
 					else
 					{
@@ -514,7 +518,7 @@
 						}
 					}
 					if(!y){
-						alert("please select a choice");
+						alert("Please choose true or false");
 					}
 					else{
 						checkPage();
@@ -524,7 +528,11 @@
 			function showCorrect(){
 				document.getElementById("one").style.display="";
 				$('#one').toggle;
+				var oneAns=document.getElementById("one");
+				var aText=" is correct!";
+				oneAns.innerHTML= testQuestions[q].answer + aText;
 				document.getElementById("b2").style.display="";
+
 			}
 			function hideCorrect(){
 				document.getElementById("one").style.display="none";
@@ -533,6 +541,9 @@
 			function showIncorrect(){
 				document.getElementById("two").style.display="";
 				$('#two').toggle;
+				var twoAns=document.getElementById("two");
+				var a2Text="Incorrect! The answer is: ";
+				twoAns.innerHTML= a2Text + testQuestions[q].answer;
 				document.getElementById("b2").style.display="";	
 			}
 			function hideIncorrect(){
@@ -552,6 +563,7 @@
 			document.getElementById("b2").style.display="";
 		}
 		function randomizeQuiz(){
+			document.getElementById("meow").style.visibility="";
 			var we = document.getElementById("qLength").value;
 			var nuw = (parseInt(we) + 1);
 			document.getElementById("checker").style.display="";
